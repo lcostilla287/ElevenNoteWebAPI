@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,11 +26,15 @@ namespace ElevenNote.Data
         //not perfect, it is possible to have duplicate GUIDs (very small chance)
         [Required]
         public Guid OwnerId { get; set; }
+
+        //below connects references Restaurant object to the foreign key and accesses everything here
         [Required]
         public string Title { get; set; }
         [Required]
         public string Content { get; set; }
 
+        [ForeignKey(nameof(Category))]
+        public int CategoryId { get; set; }
         public virtual Category Category { get; set; }// = new Category();
 
         [Required]

@@ -35,7 +35,7 @@ namespace ElevenNote.Services
         }
 
         //READ(GET)
-        public IEnumerable<CategoryListItem> GetCategory()
+        public IEnumerable<CategoryListItem> GetCategories()
         {
             using (var ctx = new ApplicationDbContext())
             {
@@ -47,7 +47,7 @@ namespace ElevenNote.Services
                             e =>
                                 new CategoryListItem
                                 {
-                                    CategoryId = e.NoteId,
+                                    CategoryId = e.CategoryId,
                                     Name = e.Name,
                                     
                                 }
@@ -63,7 +63,7 @@ namespace ElevenNote.Services
                 var entity =
                     ctx
                         .Categories
-                        .Single(e => e.NoteId == id && e.OwnerId == _userId);
+                        .Single(e => e.CategoryId == id && e.OwnerId == _userId);
                 return
                     new CategoryDetail
                     {
