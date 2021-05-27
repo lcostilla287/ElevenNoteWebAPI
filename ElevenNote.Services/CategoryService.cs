@@ -49,7 +49,6 @@ namespace ElevenNote.Services
                                 {
                                     CategoryId = e.CategoryId,
                                     Name = e.Name,
-                                    
                                 }
                          );
                 return query.ToArray();
@@ -69,6 +68,7 @@ namespace ElevenNote.Services
                     {
                         CategoryId = entity.CategoryId,
                         Name = entity.Name,
+                        //Notes = entity.Notes
                     };
             }
         }
