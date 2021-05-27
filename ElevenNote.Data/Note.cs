@@ -30,6 +30,8 @@ namespace ElevenNote.Data
         [Required]
         public string Content { get; set; }
 
+        public virtual Category Category { get; set; }// = new Category();
+
         [Required]
         public DateTimeOffset CreatedUtc { get; set; }
 
