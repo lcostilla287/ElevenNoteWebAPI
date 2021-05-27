@@ -13,6 +13,16 @@ namespace ElevenNote.Data
         //key will always be a unique number
         [Key]
         public int NoteId { get; set; }
+
+
+        //GUID
+        // it is a type that creates a unique, near impossible to replicate, ID for users or items for users
+        //Globally Unique IDentifier
+        //32 digit hexadecimals grouped in chunks 8-4-4-12
+        //There are 10^38 possible GUIDs
+        //can be used to identify users, urls, or anything else
+        //good for security but bad for debugging and tough to access
+        //not perfect, it is possible to have duplicate GUIDs (very small chance)
         [Required]
         public Guid OwnerId { get; set; }
         [Required]
@@ -24,6 +34,8 @@ namespace ElevenNote.Data
         public DateTimeOffset CreatedUtc { get; set; }
 
         public DateTimeOffset ModifiedUtc { get; set; }
+
+
 
         //VALIDATION ATTRIBUTES
         //can use [Range(1,5, ErrorMessage="please choose a number between 1 and 5")]
