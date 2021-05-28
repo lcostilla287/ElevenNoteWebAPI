@@ -13,6 +13,7 @@ namespace ElevenNote.Models
     {
         public int NoteId { get; set; }
         public string Title { get; set; }
+        public bool IsStarred { get; set; }
         public int CategoryId { get; set; }
 
         //This will display the Name "Created" instead of "CreatedUtc"

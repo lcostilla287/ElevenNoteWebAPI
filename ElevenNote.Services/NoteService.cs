@@ -27,6 +27,7 @@ namespace ElevenNote.Services
                     OwnerId = _userId,
                     Title = model.Title,
                     Content = model.Content,
+                    IsStarred = model.IsStarred,
                     CategoryId = model.CategoryId,
                     CreatedUtc = DateTimeOffset.Now
                 };
@@ -53,6 +54,7 @@ namespace ElevenNote.Services
                                 {
                                     NoteId = e.NoteId,
                                     Title = e.Title,
+                                    IsStarred = e.IsStarred,
                                     CategoryId = e.CategoryId,
                                     CreatedUtc = e.CreatedUtc
                                 }
@@ -70,12 +72,13 @@ namespace ElevenNote.Services
                     ctx
                         .Notes
                         .Single(e => e.NoteId == id && e.OwnerId == _userId);
-                    return
-                        new NoteDetail
-                        {
-                            NoteId = entity.NoteId,
-                            Title = entity.Title,
-                            Content = entity.Content,
+                return
+                    new NoteDetail
+                    {
+                        NoteId = entity.NoteId,
+                        Title = entity.Title,
+                        Content = entity.Content,
+                        IsStarred = entity.IsStarred,
                             CategoryId = entity.CategoryId,
                             CreatedUtc = entity.CreatedUtc,
                             ModifiedUtc = entity.ModifiedUtc
@@ -96,6 +99,7 @@ namespace ElevenNote.Services
 
                 entity.Title = model.Title;
                 entity.Content = model.Content;
+                entity.IsStarred = model.IsStarred;
                 entity.CategoryId = model.CategoryId;
                 entity.ModifiedUtc = DateTimeOffset.UtcNow;
 
