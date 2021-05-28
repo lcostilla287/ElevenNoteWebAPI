@@ -18,7 +18,7 @@ namespace ElevenNote.Services
             _userId = userId;
         }
 
-        //CREATE(PUT)
+        //CREATE(POST)
         public bool CreateNote(NoteCreate model)
         {
             var entity =
@@ -126,14 +126,15 @@ namespace ElevenNote.Services
 
         //Get IsStarred
 
-        public IEnumerable<NoteListItem> GetNoteByIsStarred(bool isStarred)
+        public IEnumerable<NoteListItem> GetNoteByIsStarred(string isStarred)
         {
+            bool starred = bool.Parse(isStarred);
             using (var ctx = new ApplicationDbContext())
             {
                 var query =
                     ctx
                         .Notes
-                        .Where(e => e.IsStarred == isStarred && e.OwnerId == _userId)
+                        .Where(e => e.IsStarred == starred && e.OwnerId == _userId)
                         .Select(
                             e =>
                                 new NoteListItem
@@ -142,9 +143,30 @@ namespace ElevenNote.Services
                                     Title = e.Title,
                                     IsStarred = e.IsStarred,
                                     CategoryId = e.CategoryId,
+                                    CreatedUtc = e.CreatedUtc
                                 }
                          );
                 return query.ToArray();
+            }
+        }
+
+        //PUT IsStarred
+        public bool UpdateIsStarredNote(NoteEdit model)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Notes
+                        .Single(e => e.NoteId == model.NoteId && e.OwnerId == _userId);
+
+                entity.Title = model.Title;
+                entity.Content = model.Content;
+                entity.IsStarred = model.IsStarred;
+                entity.CategoryId = model.CategoryId;
+                entity.ModifiedUtc = DateTimeOffset.UtcNow;
+
+                return ctx.SaveChanges() == 1;
             }
         }
     }

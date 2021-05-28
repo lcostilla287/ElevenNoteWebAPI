@@ -74,5 +74,14 @@ namespace ElevenNote.WebAPI.Controllers
 
             return Ok();
         }
+
+        //Get By IsStarred
+        public IHttpActionResult GetIsStarred(string isStarred)
+        {
+            NoteService noteService = CreateNoteService();
+            var note = noteService.GetNoteByIsStarred(isStarred);
+            return Ok(note);
+
+        }
     }
 }
