@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Routing;
 
 namespace ElevenNote.Services
 {
@@ -79,10 +80,10 @@ namespace ElevenNote.Services
                         Title = entity.Title,
                         Content = entity.Content,
                         IsStarred = entity.IsStarred,
-                            CategoryId = entity.CategoryId,
-                            CreatedUtc = entity.CreatedUtc,
-                            ModifiedUtc = entity.ModifiedUtc
-                        };
+                        CategoryId = entity.CategoryId,
+                        CreatedUtc = entity.CreatedUtc,
+                        ModifiedUtc = entity.ModifiedUtc
+                    };
             }
         }
 
@@ -90,7 +91,7 @@ namespace ElevenNote.Services
         //UpdateNote
         public bool UpdateNote(NoteEdit model)
         {
-            using(var ctx = new ApplicationDbContext())
+            using (var ctx = new ApplicationDbContext())
             {
                 var entity =
                     ctx
@@ -107,11 +108,11 @@ namespace ElevenNote.Services
             }
         }
 
-            //Delete Method
-            public bool DeleteNote(int noteId)
+        //Delete Method
+        public bool DeleteNote(int noteId)
+        {
+            using (var ctx = new ApplicationDbContext())
             {
-                using (var ctx = new ApplicationDbContext())
-                {
                 var entity =
                     ctx
                         .Notes
@@ -120,7 +121,31 @@ namespace ElevenNote.Services
                 ctx.Notes.Remove(entity);
 
                 return ctx.SaveChanges() == 1;
-                }
             }
+        }
+
+        //Get IsStarred
+
+        public IEnumerable<NoteListItem> GetNoteByIsStarred(bool isStarred)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var query =
+                    ctx
+                        .Notes
+                        .Where(e => e.IsStarred == isStarred && e.OwnerId == _userId)
+                        .Select(
+                            e =>
+                                new NoteListItem
+                                {
+                                    NoteId = e.NoteId,
+                                    Title = e.Title,
+                                    IsStarred = e.IsStarred,
+                                    CategoryId = e.CategoryId,
+                                }
+                         );
+                return query.ToArray();
+            }
+        }
     }
 }
