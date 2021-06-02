@@ -76,10 +76,21 @@ namespace ElevenNote.WebAPI.Controllers
         }
 
         //Get By IsStarred
-        public IHttpActionResult GetIsStarred(string isStarred)
+        [Route("api/Note/IsStarred")]
+        public IHttpActionResult GetIsStarred()
         {
             NoteService noteService = CreateNoteService();
-            var note = noteService.GetNoteByIsStarred(isStarred);
+            var note = noteService.GetNoteByIsStarred();
+            return Ok(note);
+
+        }
+
+        //Get by Is Not Starred
+        [Route("api/Note/IsNotStarred")]
+        public IHttpActionResult GetIsNotStarred()
+        {
+            NoteService noteService = CreateNoteService();
+            var note = noteService.GetNoteByIsNotStarred();
             return Ok(note);
 
         }

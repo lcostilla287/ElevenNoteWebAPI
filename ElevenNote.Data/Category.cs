@@ -19,5 +19,7 @@ namespace ElevenNote.Data
         
         [Required]
         public string Name { get; set; }
+
+        //public virtual List<Note> Notes {get; set;} == new List<Note>
     }
 }

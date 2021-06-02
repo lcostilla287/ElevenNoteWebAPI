@@ -69,6 +69,14 @@ namespace ElevenNote.Services
                         CategoryId = entity.CategoryId,
                         Name = entity.Name,
                         //Notes = entity.Notes
+                        //.Select(e=> new NoteListItem())
+                        //{
+                        //NoteId = e.NoteId
+                        //Title = e.Title
+                        //CreatedUtc = e.CreatedUtc
+                        //
+                        //} ).ToList()
+
                     };
             }
         }

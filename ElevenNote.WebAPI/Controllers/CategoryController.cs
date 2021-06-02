@@ -12,6 +12,8 @@ namespace ElevenNote.WebAPI.Controllers
 {
     public class CategoryController : ApiController
     {
+        //private CategoryService _categoryService = new CategoryService();
+        //if not using GUID use the above statement
         private CategoryService CreateCategoryService()
         {
             var userId = Guid.Parse(User.Identity.GetUserId());

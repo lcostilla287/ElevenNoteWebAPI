@@ -13,5 +13,6 @@ namespace ElevenNote.Models
         public string Name { get; set; }
 
         public virtual List<Note> Notes { get; set; } = new List<Note>();
+        //can use the NoteListItem entity instead of notes don't need to instantiate a new list
     }
 }

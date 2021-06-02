@@ -13,5 +13,7 @@ namespace ElevenNote.Models
         public string Name { get; set; }
 
         public virtual List<Note> Notes { get; set; } = new List<Note>();
+
+        //Here you can just put the Id and name
     }
 }

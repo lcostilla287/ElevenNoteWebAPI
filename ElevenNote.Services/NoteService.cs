@@ -58,6 +58,7 @@ namespace ElevenNote.Services
                                     IsStarred = e.IsStarred,
                                     CategoryId = e.CategoryId,
                                     CreatedUtc = e.CreatedUtc
+                                    //CategoryName = e.Category.Name
                                 }
                          );
                 return query.ToArray();
@@ -83,6 +84,7 @@ namespace ElevenNote.Services
                         CategoryId = entity.CategoryId,
                         CreatedUtc = entity.CreatedUtc,
                         ModifiedUtc = entity.ModifiedUtc
+                        //category = new CategoryListItem() {CategoryId = entity.Category.CategoryId, Name = entity.Category.Name}
                     };
             }
         }
@@ -103,6 +105,7 @@ namespace ElevenNote.Services
                 entity.IsStarred = model.IsStarred;
                 entity.CategoryId = model.CategoryId;
                 entity.ModifiedUtc = DateTimeOffset.UtcNow;
+                //entity.CategoryId = model.CategoryId
 
                 return ctx.SaveChanges() == 1;
             }
@@ -125,16 +128,40 @@ namespace ElevenNote.Services
         }
 
         //Get IsStarred
-
-        public IEnumerable<NoteListItem> GetNoteByIsStarred(string isStarred)
+        public IEnumerable<NoteListItem> GetNoteByIsStarred()
         {
-            bool starred = bool.Parse(isStarred);
+            //bool starred = bool.Parse(isStarred);
             using (var ctx = new ApplicationDbContext())
             {
                 var query =
                     ctx
                         .Notes
-                        .Where(e => e.IsStarred == starred && e.OwnerId == _userId)
+                        .Where(e => e.IsStarred && e.OwnerId == _userId)
+                        .Select(
+                            e =>
+                                new NoteListItem
+                                {
+                                    NoteId = e.NoteId,
+                                    Title = e.Title,
+                                    IsStarred = e.IsStarred,
+                                    CategoryId = e.CategoryId,
+                                    CreatedUtc = e.CreatedUtc
+                                }
+                         );
+                return query.ToArray();
+            }
+        }
+
+        //Get IsNotStarred
+        public IEnumerable<NoteListItem> GetNoteByIsNotStarred()
+        {
+            //bool starred = bool.Parse(isStarred);
+            using (var ctx = new ApplicationDbContext())
+            {
+                var query =
+                    ctx
+                        .Notes
+                        .Where(e => e.IsStarred == false && e.OwnerId == _userId)
                         .Select(
                             e =>
                                 new NoteListItem

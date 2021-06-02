@@ -31,7 +31,7 @@ namespace ElevenNote.Data
         [ForeignKey(nameof(Category))]
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
-        //
+        //add a ? to int so that it can be nullable and you don't have to delete the entire database
 
         [Required]
         public string Title { get; set; }
